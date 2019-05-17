@@ -1,3 +1,5 @@
+import { LanguageButtonAttrs } from '../components/languageSelect/types';
+
 export type Locales = {
   cs: string;
   en: string;
@@ -11,9 +13,7 @@ export interface IntlState {
 }
 
 export type LangConfig = {
-  [key in LocaleLangs]: IntlState & {
-  name: string;
-};
+  [key in LocaleLangs]: IntlState & LanguageButtonAttrs;
 }
 
 export interface IntlContextState extends IntlState {

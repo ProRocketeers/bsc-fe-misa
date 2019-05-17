@@ -7,7 +7,7 @@ import { IntlContextState, IntlState, LocaleLangs } from './types';
 
 addLocaleData([...cs, ...en]);
 
-const defaultIntl = langConfig.cs;
+const defaultIntl = langConfig[localStorage.getItem('locale') as LocaleLangs || 'cs'];
 
 const IntlContext = React.createContext<IntlContextState>({
   ...defaultIntl,
@@ -18,6 +18,7 @@ const IntlProvider: React.FC = ({ children }) => {
   const [ intl, setIntl ] = useState<IntlState>(defaultIntl);
 
   const changeLocale = useCallback((locale: LocaleLangs) => {
+    localStorage.setItem('locale', locale);
     setIntl(langConfig[locale]);
   }, []);
 

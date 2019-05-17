@@ -1,0 +1,16 @@
+.languageSelect {
+  margin: .5rem;
+
+  .dropdown-item {
+    padding-left: 12px;
+
+    &.active, &:active {
+      background-color: rgba(#117a8b, .8);
+    }
+  }
+
+  .lang-flag {
+    height: 1rem;
+    margin-right: 1rem;
+  }
+}
