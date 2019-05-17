@@ -1,8 +1,8 @@
 import { RouteProps } from 'react-router';
-import { NoteCreate } from '../pages/create';
-import { NoteDetail } from '../pages/detail';
-import { NoteEdit } from '../pages/edit';
-import { NotesList } from '../pages/list';
+import { NoteCreate } from '../pages/notes/create';
+import { NoteDetail } from '../pages/notes/detail';
+import { NoteEdit } from '../pages/notes/edit';
+import { NotesList } from '../pages/notes/list';
 import { NotFound } from '../pages/notFound';
 
 export const paths = {
