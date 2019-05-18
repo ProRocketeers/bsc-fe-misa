@@ -1,9 +1,15 @@
 {
   "header.title": "Úkoly",
-  "list.button.add": "Vytvořit",
+  "list.button.add": "Přidat",
   "list.title": "Moje úkoly",
-  "note.title": "Úkol",
-  "note.button.edit": "Editovat",
+  "note.alert.created": "Úkol byl úspěšně vytvořen",
+  "note.alert.edited": "Úkol byl úspěšně editován",
+  "note.alert.deleted": "Úkol byl úspěšně vymazán",
+  "note.button.create": "Vytvořit",
   "note.button.delete": "Smazat",
+  "note.button.edit": "Editovat",
+  "note.title": "Úkol",
+  "noteForm.button.submit": "Uložit",
+  "noteForm.field.title": "Název",
   "notes.noData": "Nebyla nalezena žádná data"
 }

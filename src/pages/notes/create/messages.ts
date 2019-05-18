@@ -5,17 +5,13 @@ const definitions = {
     id: 'note.title',
     defaultMessage: 'Úkol',
   },
-  edit: {
-    id: 'note.button.edit',
-    defaultMessage: 'Editovat',
+  create: {
+    id: 'note.button.create',
+    defaultMessage: 'Vytvořit',
   },
-  delete: {
-    id: 'note.button.delete',
-    defaultMessage: 'Smazat',
-  },
-  deleted: {
-    id: 'note.alert.deleted',
-    defaultMessage: 'Úkol byl úspěšně vymazán',
+  created: {
+    id: 'note.alert.created',
+    defaultMessage: 'Úkol byl úspěšně vytvořen',
   },
 };
 

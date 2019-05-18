@@ -31,3 +31,7 @@ a:hover {
   align-items: center;
   font-weight: 600;
 }
+
+.form-label {
+  font-weight: 600;
+}

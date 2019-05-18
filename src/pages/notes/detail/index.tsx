@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
+import { WithAlert } from '../../../components/alert/types';
+import { withAlert } from '../../../components/alert/withAlert';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
 import { Translated } from '../../../components/translated';
@@ -12,7 +14,7 @@ import { Note } from '../types';
 import { messages } from './messages';
 import { NoteDetailParams } from './types';
 
-export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ match, history }) => {
+export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & WithAlert>(({ match, history, alert }) => {
   const [note, setNote] = useState<Note | undefined>();
   const [loading, setLoading] = useState(false);
 
@@ -28,8 +30,12 @@ export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ ma
     } catch (e) {
       setNote(undefined);
       setLoading(false);
+      alert({
+        variant: 'danger',
+        message: e.message,
+      });
     }
-  }, [id]);
+  }, [id, alert]);
 
   const deleteNote = useCallback(async () => {
     setLoading(true);
@@ -39,10 +45,18 @@ export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ ma
       setNote(note);
       setLoading(false);
       history.push(paths.list);
+      alert({
+        variant: 'success',
+        message: <Translated message={messages.deleted} />
+      });
     } catch (e) {
       setLoading(false);
+      alert({
+        variant: 'danger',
+        message: e.message,
+      });
     }
-  }, [id, history]);
+  }, [id, history, alert]);
 
   useEffect(() => {
     getNote();
@@ -53,14 +67,14 @@ export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ ma
       <Card.Header>
         <Translated message={messages.title} />
         <div>
-          <Link to={`${paths.edit_noParam}${id}`} style={{ marginRight: '1rem' }}>
+          <Button variant="danger" onClick={deleteNote} style={{ marginRight: '1rem' }}>
+            <Translated message={messages.delete} />
+          </Button>
+          <Link to={`${paths.edit_noParam}${id}`}>
             <Button>
               <Translated message={messages.edit} />
             </Button>
           </Link>
-          <Button variant="danger" onClick={deleteNote}>
-            <Translated message={messages.delete} />
-          </Button>
         </div>
       </Card.Header>
       <ListGroup variant="flush">
@@ -73,4 +87,4 @@ export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ ma
       <LoadingIndicator loading={loading} />
     </Card>
   );
-};
+});

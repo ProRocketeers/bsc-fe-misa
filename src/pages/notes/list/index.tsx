@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { withAlert } from '../../../components/alert/withAlert';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { Notes } from '../../../components/notes';
 import { Translated } from '../../../components/translated';
@@ -11,7 +12,7 @@ import { paths } from '../../../router/config';
 import { Note } from '../types';
 import { messages } from './messages';
 
-export const NotesList: React.FC = () => {
+export const NotesList = withAlert(({ alert }) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -25,8 +26,12 @@ export const NotesList: React.FC = () => {
     } catch (e) {
       setNotes([]);
       setLoading(false);
+      alert({
+        variant: 'danger',
+        message: e.message,
+      });
     }
-  }, []);
+  }, [alert]);
 
   useEffect(() => {
     getNotes();
@@ -46,4 +51,4 @@ export const NotesList: React.FC = () => {
       <LoadingIndicator loading={loading} />
     </Card>
   );
-};
+});
