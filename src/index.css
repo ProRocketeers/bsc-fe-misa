@@ -24,3 +24,10 @@ code {
 a:hover {
   text-decoration: none;
 }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}

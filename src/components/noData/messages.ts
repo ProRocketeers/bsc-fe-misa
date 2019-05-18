@@ -3,7 +3,7 @@ import { defineMessages, Messages } from 'react-intl';
 const definitions = {
   noData: {
     id: 'notes.noData',
-    defaultMessage: 'Nebyly nalezeny žádné úkoly',
+    defaultMessage: 'Nebyla nalezena žádná data',
   },
 };
 

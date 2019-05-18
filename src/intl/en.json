@@ -2,5 +2,8 @@
   "header.title": "TODO",
   "list.button.add": "Add",
   "list.title": "My TODOs",
-  "notes.noData": "No TODOs found"
+  "note.title": "TODO",
+  "note.button.edit": "Edit",
+  "note.button.delete": "Delete",
+  "notes.noData": "No data found"
 }

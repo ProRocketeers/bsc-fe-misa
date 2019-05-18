@@ -2,5 +2,8 @@
   "header.title": "Úkoly",
   "list.button.add": "Vytvořit",
   "list.title": "Moje úkoly",
-  "notes.noData": "Nebyly nalezeny žádné poznámky"
+  "note.title": "Úkol",
+  "note.button.edit": "Editovat",
+  "note.button.delete": "Smazat",
+  "notes.noData": "Nebyla nalezena žádná data"
 }

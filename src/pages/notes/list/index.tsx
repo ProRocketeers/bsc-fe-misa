@@ -1,15 +1,15 @@
+import axios from 'axios';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Card, ProgressBar, Spinner } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { Notes } from '../../../components/notes';
 import { Translated } from '../../../components/translated';
+import { HOST_URL } from '../../../constants';
 import { paths } from '../../../router/config';
 import { Note } from '../types';
-import axios from 'axios';
 import { messages } from './messages';
-import './styles.scss';
 
 export const NotesList: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -18,7 +18,7 @@ export const NotesList: React.FC = () => {
   const getNotes = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://private-9aad-note10.apiary-mock.com/notes');
+      const response = await axios.get(`${HOST_URL}/notes`);
       const notes: Note[] = response.data;
       setNotes(notes);
       setLoading(false);
@@ -30,10 +30,10 @@ export const NotesList: React.FC = () => {
 
   useEffect(() => {
     getNotes();
-  }, []);
+  }, [getNotes]);
 
   return (
-    <Card className="notesListContainer">
+    <Card>
       <Card.Header>
         <Translated message={messages.title} />
         <Link to={paths.create}>
