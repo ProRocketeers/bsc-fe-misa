@@ -1,1 +1,6 @@
-{}
+{
+  "header.title": "TODO",
+  "list.button.add": "Add",
+  "list.title": "My TODO's",
+  "notes.noData": "No TODO's found"
+}

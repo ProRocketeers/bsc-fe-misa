@@ -24,11 +24,11 @@ export const LanguageSelect = () => {
       />
       {config.name}
     </Dropdown.Item>
-  ), [locale]);
+  ), [locale, changeLocale]);
 
   return (
     <Dropdown className="languageSelect">
-      <Dropdown.Toggle id="languageToggle" variant="info">
+      <Dropdown.Toggle id="languageToggle">
         <img
           className="lang-flag"
           src={selectedConfig.image}

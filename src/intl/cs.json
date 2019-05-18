@@ -1,1 +1,6 @@
-{}
+{
+  "header.title": "Úkoly",
+  "list.button.add": "Vytvořit",
+  "list.title": "Moje úkoly",
+  "notes.noData": "Nebyly nalezeny žádné poznámky"
+}
