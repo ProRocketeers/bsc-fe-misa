@@ -1,0 +1,18 @@
+@import '../../variables';
+
+.loadingIndicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  .progress {
+    height: .5rem;
+    border-radius: 0;
+
+    .progress-bar {
+      background-color: $accent;
+      transform: rotate(180deg);
+    }
+  }
+}
