@@ -1,20 +1,26 @@
-import axios from 'axios';
 import { Formik } from 'formik';
 import * as React from 'react';
 import { useCallback, useRef, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { RouteComponentProps } from 'react-router-dom';
 import { WithAlert } from '../../../components/alert/types';
 import { withAlert } from '../../../components/alert/withAlert';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoteForm } from '../../../components/noteForm';
 import { Translated } from '../../../components/translated';
-import { HOST_URL } from '../../../constants';
+import { notesRequests } from '../../../http/requests';
 import { paths } from '../../../router/config';
 import { Note } from '../types';
-import { messages } from './messages';
+import { messages } from '../messages';
 
-export const NoteCreate = withAlert<RouteComponentProps & WithAlert>(({ history, alert }) => {
+export const NoteCreate = injectIntl(withAlert<RouteComponentProps & WithAlert & InjectedIntlProps>((
+  {
+    history,
+    alert,
+    intl: { formatMessage },
+  }
+  ) => {
   const [loading, setLoading] = useState(false);
   const formikRef = useRef<Formik<Note | undefined>>(null);
 
@@ -27,7 +33,10 @@ export const NoteCreate = withAlert<RouteComponentProps & WithAlert>(({ history,
   const createNote = useCallback(async (note?: Note) => {
     setLoading(true);
     try {
-      await axios.post<Note>(`${HOST_URL}/notes`, note);
+      if (!note || !note.title) {
+        throw new Error(formatMessage(messages.noNoteError));
+      }
+      await notesRequests.postNote(note);
       setLoading(false);
       alert({
         variant: 'success',
@@ -41,7 +50,7 @@ export const NoteCreate = withAlert<RouteComponentProps & WithAlert>(({ history,
         message: e.message,
       });
     }
-  }, [history, alert]);
+  }, [history, alert, formatMessage]);
 
   return (
     <Card>
@@ -55,4 +64,4 @@ export const NoteCreate = withAlert<RouteComponentProps & WithAlert>(({ history,
       <LoadingIndicator loading={loading} />
     </Card>
   );
-});
+}));

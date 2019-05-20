@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
@@ -9,10 +8,10 @@ import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
 import { Spinner } from '../../../components/spinner';
 import { Translated } from '../../../components/translated';
-import { HOST_URL } from '../../../constants';
+import { notesRequests } from '../../../http/requests';
 import { paths } from '../../../router/config';
 import { Note } from '../types';
-import { messages } from './messages';
+import { messages } from '../messages';
 import { NoteDetailParams } from './types';
 
 export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & WithAlert>(({ match, history, alert }) => {
@@ -24,8 +23,7 @@ export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & With
   const getNote = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${HOST_URL}/notes/${id}`);
-      const note: Note = response.data;
+      const note: Note | undefined = await notesRequests.getNote(id);
       setNote(note);
       setLoading(false);
     } catch (e) {
@@ -41,9 +39,7 @@ export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & With
   const deleteNote = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.delete(`${HOST_URL}/notes/${id}`);
-      const note: Note = response.data;
-      setNote(note);
+      await notesRequests.deleteNote(id);
       setLoading(false);
       history.push(paths.list);
       alert({

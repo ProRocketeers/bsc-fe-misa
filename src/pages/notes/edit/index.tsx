@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { Formik } from 'formik';
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { RouteComponentProps } from 'react-router-dom';
 import { WithAlert } from '../../../components/alert/types';
 import { withAlert } from '../../../components/alert/withAlert';
@@ -10,13 +10,20 @@ import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
 import { NoteForm } from '../../../components/noteForm';
 import { Translated } from '../../../components/translated';
-import { HOST_URL } from '../../../constants';
+import { notesRequests } from '../../../http/requests';
 import { paths } from '../../../router/config';
+import { messages } from '../messages';
 import { Note } from '../types';
-import { messages } from './messages';
 import { NoteEditParams } from './types';
 
-export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAlert>(({ match, history, alert }) => {
+export const NoteEdit = injectIntl(withAlert<RouteComponentProps<NoteEditParams> & WithAlert & InjectedIntlProps>((
+  {
+    match,
+    history,
+    alert,
+    intl: { formatMessage },
+  }
+) => {
   const [note, setNote] = useState<Note | undefined>();
   const [loading, setLoading] = useState(false);
   const formikRef = useRef<Formik<Note | undefined>>(null);
@@ -26,8 +33,7 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
   const getNote = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${HOST_URL}/notes/${id}`);
-      const note: Note = response.data;
+      const note: Note | undefined = await notesRequests.getNote(id);
       setNote(note);
       setLoading(false);
     } catch (e) {
@@ -49,7 +55,10 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
   const editNote = useCallback(async (editedNote?: Note) => {
     setLoading(true);
     try {
-      await axios.put<Note>(`${HOST_URL}/notes/${id}`, editedNote);
+      if (!editedNote || !editedNote.title) {
+        throw new Error(formatMessage(messages.noNoteError));
+      }
+      await notesRequests.putNote(editedNote);
       setLoading(false);
       history.push(paths.list);
       alert({
@@ -63,7 +72,7 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
         message: e.message,
       });
     }
-  }, [id, history, alert]);
+  }, [history, alert, formatMessage]);
 
   useEffect(() => {
     getNote();
@@ -85,4 +94,4 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
       <LoadingIndicator loading={loading} />
     </Card>
   );
-});
+}));

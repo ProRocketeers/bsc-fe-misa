@@ -5,25 +5,37 @@ const definitions = {
     id: 'note.title',
     defaultMessage: 'Úkol',
   },
-  edit: {
-    id: 'note.button.edit',
-    defaultMessage: 'Editovat',
-  },
-  delete: {
-    id: 'note.button.delete',
-    defaultMessage: 'Smazat',
-  },
   submit: {
     id: 'noteForm.button.submit',
     defaultMessage: 'Uložit',
+  },
+  create: {
+    id: 'note.button.create',
+    defaultMessage: 'Vytvořit',
+  },
+  created: {
+    id: 'note.alert.created',
+    defaultMessage: 'Úkol byl úspěšně vytvořen',
+  },
+  edit: {
+    id: 'note.button.edit',
+    defaultMessage: 'Editovat',
   },
   edited: {
     id: 'note.alert.edited',
     defaultMessage: 'Úkol byl úspěšně editován',
   },
+  delete: {
+    id: 'note.button.delete',
+    defaultMessage: 'Smazat',
+  },
   deleted: {
     id: 'note.alert.deleted',
     defaultMessage: 'Úkol byl úspěšně vymazán',
+  },
+  noNoteError: {
+    id: 'note.error.noNote',
+    defaultMessage: 'Nelze uložit prázdný úkol',
   },
 };
 

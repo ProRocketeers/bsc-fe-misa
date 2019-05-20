@@ -7,7 +7,7 @@ import { withAlert } from '../../../components/alert/withAlert';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { Notes } from '../../../components/notes';
 import { Translated } from '../../../components/translated';
-import { HOST_URL } from '../../../constants';
+import { HOST_URL } from '../../../http/requests';
 import { paths } from '../../../router/config';
 import { Note } from '../types';
 import { messages } from './messages';
@@ -41,7 +41,7 @@ export const NotesList = withAlert(({ alert }) => {
     <Card>
       <Card.Header>
         <Translated message={messages.title} />
-        <Link to={paths.create}>
+        <Link to={paths.create} id="create">
           <Button>
             <Translated message={messages.add} />
           </Button>
