@@ -8,9 +8,10 @@
   "scripts": {
     "start": "set PORT=9000 && react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test a",
     "eject": "react-scripts eject",
-    "lint:check": "eslint --ext .ts,.tsx,.js,.jsx src/"
+    "lint:check": "eslint --ext .ts,.tsx,.js,.jsx src/",
+    "test:e2e": "cypress open"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -39,6 +40,7 @@
     "@types/react-router-dom": "^4.3.3",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "cypress": "^3.3.0",
     "eslint-config-google": "^0.12.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-react": "^1.1.7",
