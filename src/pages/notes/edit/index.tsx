@@ -1,11 +1,10 @@
 import { Formik } from 'formik';
 import * as React from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { RouteComponentProps } from 'react-router-dom';
-import { WithAlert } from '../../../components/alert/types';
-import { withAlert } from '../../../components/alert/withAlert';
+import { AlertContext } from '../../../components/alert/context';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
 import { NoteForm } from '../../../components/noteForm';
@@ -16,16 +15,16 @@ import { messages } from '../messages';
 import { Note } from '../types';
 import { NoteEditParams } from './types';
 
-export const NoteEdit = injectIntl(withAlert<RouteComponentProps<NoteEditParams> & WithAlert & InjectedIntlProps>((
+export const NoteEdit = injectIntl<RouteComponentProps<NoteEditParams> & InjectedIntlProps>((
   {
     match,
     history,
-    alert,
     intl: { formatMessage },
   }
 ) => {
   const [note, setNote] = useState<Note | undefined>();
   const [loading, setLoading] = useState(false);
+  const { alert } = useContext(AlertContext);
   const formikRef = useRef<Formik<Note | undefined>>(null);
 
   const id = useMemo(() => match.params.noteId, [match.params.noteId]);
@@ -94,4 +93,4 @@ export const NoteEdit = injectIntl(withAlert<RouteComponentProps<NoteEditParams>
       <LoadingIndicator loading={loading} />
     </Card>
   );
-}));
+});

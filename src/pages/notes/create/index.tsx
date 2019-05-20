@@ -1,27 +1,26 @@
 import { Formik } from 'formik';
 import * as React from 'react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { RouteComponentProps } from 'react-router-dom';
-import { WithAlert } from '../../../components/alert/types';
-import { withAlert } from '../../../components/alert/withAlert';
+import { AlertContext } from '../../../components/alert/context';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoteForm } from '../../../components/noteForm';
 import { Translated } from '../../../components/translated';
 import { notesRequests } from '../../../http/requests';
 import { paths } from '../../../router/config';
-import { Note } from '../types';
 import { messages } from '../messages';
+import { Note } from '../types';
 
-export const NoteCreate = injectIntl(withAlert<RouteComponentProps & WithAlert & InjectedIntlProps>((
+export const NoteCreate = injectIntl<RouteComponentProps & InjectedIntlProps>((
   {
     history,
-    alert,
     intl: { formatMessage },
   }
-  ) => {
+) => {
   const [loading, setLoading] = useState(false);
+  const { alert } = useContext(AlertContext);
   const formikRef = useRef<Formik<Note | undefined>>(null);
 
   const submitNote = useCallback(() => {
@@ -64,4 +63,4 @@ export const NoteCreate = injectIntl(withAlert<RouteComponentProps & WithAlert &
       <LoadingIndicator loading={loading} />
     </Card>
   );
-}));
+});

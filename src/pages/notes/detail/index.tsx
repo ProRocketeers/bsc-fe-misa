@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { WithAlert } from '../../../components/alert/types';
-import { withAlert } from '../../../components/alert/withAlert';
+import { AlertContext } from '../../../components/alert/context';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
 import { Spinner } from '../../../components/spinner';
 import { Translated } from '../../../components/translated';
 import { notesRequests } from '../../../http/requests';
 import { paths } from '../../../router/config';
-import { Note } from '../types';
 import { messages } from '../messages';
+import { Note } from '../types';
 import { NoteDetailParams } from './types';
 
-export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & WithAlert>(({ match, history, alert }) => {
+export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ match, history }) => {
   const [note, setNote] = useState<Note | undefined>();
   const [loading, setLoading] = useState(true);
+  const { alert } = useContext(AlertContext);
 
   const id = useMemo(() => match.params.noteId, [match.params.noteId]);
 
@@ -84,4 +84,4 @@ export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & With
       <LoadingIndicator loading={loading} />
     </Card>
   );
-});
+};
