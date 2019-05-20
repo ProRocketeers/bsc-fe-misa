@@ -9,10 +9,10 @@ export const paths = {
   default: '/',
   list: '/',
   detail: '/detail/:noteId',
-  detail_noParam: '/detail/',
+  detailNoParam: '/detail/',
   create: '/new',
   edit: '/edit/:noteId',
-  edit_noParam: '/edit/',
+  editNoParam: '/edit/',
 };
 
 export const routes: RouteProps[] = [

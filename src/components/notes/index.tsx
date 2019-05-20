@@ -14,7 +14,7 @@ export const Notes: React.FC<NotesListProps> = ({ notes = [] }) => (
       notes.length
         ? R.map((note: Note) => (
           <ListGroup.Item key={`note-${note.id}`} action>
-            <Link to={`${paths.detail_noParam}${note.id}`}>
+            <Link to={`${paths.detailNoParam}${note.id}`}>
               {note.title}
             </Link>
           </ListGroup.Item>

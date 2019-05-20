@@ -67,7 +67,7 @@ export const NoteDetail: React.FC<RouteComponentProps<NoteDetailParams>> = ({ ma
           <Button variant="danger" onClick={deleteNote} style={{ marginRight: '1rem' }}>
             <Translated message={messages.delete} />
           </Button>
-          <Link to={`${paths.edit_noParam}${id}`}>
+          <Link to={`${paths.editNoParam}${id}`}>
             <Button>
               <Translated message={messages.edit} />
             </Button>
