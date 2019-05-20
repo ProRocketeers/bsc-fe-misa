@@ -1,0 +1,13 @@
+@import '../../variables';
+
+.notes {
+
+  .list-group-item {
+    padding: 0;
+
+    a {
+      display: block;
+      padding: $list-group-item-padding-y $list-group-item-padding-x;
+    }
+  }
+}
