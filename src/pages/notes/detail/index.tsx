@@ -7,6 +7,7 @@ import { WithAlert } from '../../../components/alert/types';
 import { withAlert } from '../../../components/alert/withAlert';
 import { LoadingIndicator } from '../../../components/loadingIndicator';
 import { NoData } from '../../../components/noData';
+import { Spinner } from '../../../components/spinner';
 import { Translated } from '../../../components/translated';
 import { HOST_URL } from '../../../constants';
 import { paths } from '../../../router/config';
@@ -16,7 +17,7 @@ import { NoteDetailParams } from './types';
 
 export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & WithAlert>(({ match, history, alert }) => {
   const [note, setNote] = useState<Note | undefined>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const id = useMemo(() => match.params.noteId, [match.params.noteId]);
 
@@ -79,9 +80,9 @@ export const NoteDetail = withAlert<RouteComponentProps<NoteDetailParams> & With
       </Card.Header>
       <ListGroup variant="flush">
         {
-          note
-            ? <ListGroup.Item>{note.title}</ListGroup.Item>
-            : <NoData />
+          loading
+            ? <Spinner loading />
+            : <ListGroup.Item>{note ? note.title : <NoData />}</ListGroup.Item>
         }
       </ListGroup>
       <LoadingIndicator loading={loading} />

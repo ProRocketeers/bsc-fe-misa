@@ -65,27 +65,6 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
     }
   }, [id, history, alert]);
 
-  const deleteNote = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await axios.delete(`${HOST_URL}/notes/${id}`);
-      const note: Note = response.data;
-      setNote(note);
-      setLoading(false);
-      history.push(paths.list);
-      alert({
-        variant: 'success',
-        message: <Translated message={messages.deleted} />
-      });
-    } catch (e) {
-      setLoading(false);
-      alert({
-        variant: 'danger',
-        message: e.message,
-      });
-    }
-  }, [id, history, alert]);
-
   useEffect(() => {
     getNote();
   }, [getNote]);
@@ -94,14 +73,9 @@ export const NoteEdit = withAlert<RouteComponentProps<NoteEditParams> & WithAler
     <Card>
       <Card.Header>
         <Translated message={messages.title} />
-        <div>
-          <Button variant="danger" onClick={deleteNote} style={{ marginRight: '1rem' }}>
-            <Translated message={messages.delete} />
-          </Button>
-          <Button onClick={submitNote}>
-            <Translated message={messages.submit} />
-          </Button>
-        </div>
+        <Button onClick={submitNote}>
+          <Translated message={messages.submit} />
+        </Button>
       </Card.Header>
       {
         note
